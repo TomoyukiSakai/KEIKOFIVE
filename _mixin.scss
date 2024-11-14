@@ -1,0 +1,48 @@
+@mixin animation(
+  $name,
+  $duration: 1s,
+  $timing-function: ease,
+  $delay: 0s,
+  $iteration-count: 1,
+  $direction: normal,
+  $fill-mode: forwards
+) {
+  animation: {
+    name: $name;
+    duration: $duration;
+    timing-function: $timing-function;
+    delay: $delay;
+    iteration-count: $iteration-count;
+    direction: $direction;
+    fill-mode: $fill-mode;
+  }
+}
+
+.more-contents{
+  background-color: black;
+  color:white;
+  width:10vw;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.center{
+  text-align:center;
+  
+}
+.large{
+  font-size: 50px;;
+}
+
+.two-colums{
+  
+  border-bottom: 10px solid;
+}
+
+#news_page{
+  text-align: left;
+}
+
+.swiper-slide{
+  overflow: hidden;
+}

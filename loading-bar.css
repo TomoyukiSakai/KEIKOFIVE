@@ -1,0 +1,41 @@
+.pace {
+	z-index: 2000;
+	position: fixed;
+	margin: auto;
+	top: 12px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 200px;
+	height: 50px;
+	overflow: hidden;
+}
+
+#global-container{
+	transition: opacity 1;
+}
+
+.pace-running #global-container{
+	opacity:0;
+	visibility: hidden;
+}
+
+.pace .pace-progress {
+	transform: none !important;
+	text-align: center;
+}
+
+.pace .pace-progress:after {
+	content: attr(data-progress-text);
+	display: block;
+	font-weight: 100;
+	font-size:2em;
+	font-family: "Helvetica Neue", "Yu Gothic", "Meiryo",sans-self;
+}
+
+
+
+
+.pace.pace-inactive {
+	display: none;
+}

@@ -1,0 +1,606 @@
+@use "mixin" as *;
+
+
+
+$breakpoints: (
+    'sm':'(min-width:480px)',
+    'md':'(min-width:600px)',
+    'lg':'(min-width:960px)',
+    'xl':'(min-width:1280px)',
+);
+
+@mixin mq($breakpoint: md) {
+    @media #{map-get($breakpoints,$breakpoint)} {
+        @content;
+    }
+}
+
+h1 {
+    font-size: 7vw;
+
+    @include mq($breakpoint: md) {
+        font-size: 50px;
+
+    }
+
+    ;
+}
+
+$pic-inview: false;
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body {
+    margin: 0;
+}
+
+header {
+    position: relative;
+    height: 100px;
+    ;
+
+    #header-logo {
+        position: absolute;
+
+
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+
+    }
+
+    .menu-btn {
+        position: absolute;
+        right: 0%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+
+}
+
+
+
+
+.three-colums {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+
+
+
+    &.leftToRight {
+        flex-direction: column;
+
+        @include mq($breakpoint: md) {
+            flex-direction: row;
+
+        }
+
+        ;
+    }
+
+    &.rightToLeft {
+        flex-direction: column;
+
+        @include mq($breakpoint: md) {
+            flex-direction: row-reverse;
+
+        }
+
+        ;
+    }
+
+
+
+
+}
+
+
+.column_title {
+    font-size: 30px;
+    margin-left: 10px;
+
+
+    @include mq(md) {
+        font-size: 100px;
+
+        &.vertical {
+            writing-mode: vertical-rl;
+            flex: 1;
+        }
+
+    }
+
+}
+
+.two-colums {
+
+    .column_title {
+        flex: 4;
+
+    }
+}
+
+
+.two-colums {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 20px;
+
+
+
+    @include mq($breakpoint: md) {
+        flex-direction: row;
+
+        .column_title {
+            flex: 3;
+            /*display: flex;
+            justify-content: flex-start;
+            align-items: center; 
+            */
+            margin-right: 10vw;
+
+            &.vertical {
+                writing-mode: vertical-rl;
+            }
+        }
+    }
+
+    ;
+
+}
+
+.pic {
+
+    padding: 20px;
+
+    img {
+        width: 100%;
+
+    }
+
+    @include mq($breakpoint: md) {
+
+        flex: 3;
+    }
+
+    ;
+
+
+    opacity:0;
+
+    &.pic-inview {
+        opacity: 100;
+        animation: picAnimation 2s forwards;
+    }
+
+}
+
+
+
+.card {
+
+    padding: 20px;
+
+    @include mq($breakpoint: md) {
+
+        flex: 4;
+    }
+
+    ;
+}
+
+.two-colums {
+    .card {
+        padding: 20px;
+
+        @include mq($breakpoint: md) {
+
+            flex: 7;
+        }
+    }
+
+    ;
+}
+
+h2 {
+    border-left: 5px black solid;
+    border-bottom: 5px black solid;
+    display: inline-block;
+
+    & .__center {
+        text-align: center;
+    }
+}
+
+button {
+    all: unset;
+}
+
+.circle-button {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    text-align: center;
+    font-size: 70%;
+    margin: 10px;
+    transition: transform ease 0.05s;
+    border: 1px solid black;
+    box-shadow: 10px 10px 0 0 black;
+
+    @include mq($breakpoint: md) {
+        width: 100px;
+        height: 100px;
+
+    }
+
+    ;
+
+    &:hover {
+
+        transform: translate(5px, 5px);
+        border-radius: 7px;
+    }
+}
+
+.buy {
+    & p {
+        display: inline;
+        border-left: 2px black solid;
+        border-bottom: 2px black solid;
+        padding: 3px;
+    }
+}
+
+.rect {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    animation: rect_bound 4s forwards;
+    animation-timing-function: ease;
+    ///animation-delay:1s;
+    animation-iteration-count: 1;
+
+    position: absolute;
+    top: 30%;
+}
+
+
+
+
+/* h2要素に流れる四角形のアニメーションを追加 */
+h2 {
+    position: relative;
+    overflow: hidden;
+    /* 四角形が見出しを超えて流れないように */
+    border-left: 5px black solid;
+    border-bottom: 5px black solid;
+    display: inline-block;
+    padding-left: 10px;
+    /* 左に余白を作成 */
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    /* 四角形の幅 */
+    height: 50px;
+    /* 四角形の高さ */
+    background-color: black;
+    animation: rect_bound 4s forwards linear;
+}
+
+@keyframes rect_bound {
+    0% {
+        left: -50px;
+        /* 見出しの左外から開始 */
+    }
+
+    100% {
+        left: 100%;
+        /* 見出しの右外へ流れて終了 */
+        opacity: 0;
+    }
+}
+
+@keyframes picAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        /* 少し下から上に移動 */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        /* 元の位置に */
+    }
+}
+
+#parent {
+    padding: 50px;
+}
+
+.menu-btn {
+    background-color: unset;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    position: fixed;
+    top:5vh;
+    right:5vw;
+    z-index: 999;
+
+    &>span {
+        background-color: black;
+        width: 35px;
+        height: 2px;
+        display: block;
+        margin-bottom: 9px;
+        transition: transform 0.7s;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+
+
+
+
+#container {
+    background-color: white;
+    position: relative;
+    z-index: 5;
+    transition: all 0.5s;
+    height: auto;
+}
+
+.menu-contents {
+    background-color: white;
+    position: fixed;
+    right: 0;
+    top: 100px;
+    width: 300px;
+
+    @include mq($breakpoint: md) {
+        width: 400px;
+    }
+
+    ;
+
+
+
+    &__cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        //background-color: rgba(0,0,0,0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s;
+        z-index: 100;
+        cursor: pointer;
+
+    }
+
+    &__main {
+        padding: 0;
+        perspective: 2000px;
+        transform-style: preserve-3d;
+    }
+
+    &__item {
+        list-style: none;
+        display: block;
+        transform: translate3d(0, 0, -1000px);
+        padding: 0 40px;
+        transition: transform 0.3s, opacity 0.2s;
+        opacity: 0;
+    }
+
+    &__link {
+        display: block;
+        margin-top: 30px;
+        color: black;
+        text-decoration: none;
+    }
+
+}
+
+.main-title {
+    display: block;
+    font-weight: 600;
+    font-size: 20px;
+
+    @include mq($breakpoint: md) {
+        font-size: 40px;
+    }
+
+    ;
+}
+
+.sub-title {
+    display: block; //折り返し防止
+    font-size: 20px;
+    color: gray;
+}
+
+.menu-open {
+
+
+    & #container {
+
+        transform: translate(-300px, 0px);
+        box-shadow: 0 8px 40px -10px rgba(0, 0, 0, 0.8);
+        height: 100vh;
+
+        @include mq($breakpoint: md) {
+            transform: translate(-400px, 60px);
+
+        }
+
+        ;
+    }
+
+    & .menu-contents {
+
+        &__cover {
+            opacity: 1;
+            visibility: visible;
+            cursor: pointer;
+        }
+
+        &__item {
+            transform: none;
+            opacity: 1;
+
+            @for $i from 1 through 5 {
+                &:nth-child(#{$i}) {
+                    transition-delay: $i * 0.07s;
+                }
+            }
+        }
+    }
+
+    & .menu-btn {
+        &>span {
+
+            &:nth-child(1) {
+                transition-delay: 70ms;
+                transform: translateY(11px) rotate(135deg);
+            }
+
+            &:nth-child(2) {
+                transition-delay: 0s;
+                transform: translateX(-18px) scaleX(0);
+            }
+
+            &:nth-child(3) {
+                transition-delay: 140ms;
+                transform: translateY(-11px) rotate(-135deg);
+            }
+        }
+    }
+}
+
+
+
+/*.menu-open .menu-contents__item {
+    transform: none;
+    opacity: 1;
+}*/
+
+
+
+
+.animate-title {
+    text-align: center;
+
+    &.inview {
+
+        & .char {
+            display: inline-block;
+            @include animation($name: kf-animate-chars,
+                $duration: 0.5s,
+                $timing-function: cubic-bezier(0.39, 1.57, 0.58, 1),
+                $fill-mode: both);
+
+            @for $i from 1 through 9 {
+                &:nth-child(#{$i}) {
+                    animation-delay: $i *0.04s;
+                }
+            }
+        }
+    }
+}
+
+
+
+@keyframes kf-animate-chars {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.smartphone_none {
+    display: none;
+
+    @include mq(md) {
+        display: block;
+    }
+}
+
+.swiper {
+    width: 60vw;
+    height: 500px;
+}
+
+.swiper-button-prev {
+    margin: 10px;
+}
+
+.swiper-button-next {
+    margin: 50px;
+}
+
+.slide-btn{
+    width:10vw;
+    border: 1px solid;
+    transition: all 0.3s ease;
+    text-align: center;
+    padding:5px;
+   
+    &.slide-bg{
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        & span{
+            z-index: -1;
+            display: inline-block;
+            width:100%;
+            height:100%;
+            background-color: black;
+            position:absolute;
+            top:0;
+            left:0;
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+          
+        }
+
+        &:hover{
+            color:white;
+        & span{
+            transform: none;
+            
+        }
+    }
+}
+
+}
